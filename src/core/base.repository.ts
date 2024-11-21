@@ -53,8 +53,6 @@ export class BaseRepository {
     pageInfo: PageInfo,
     queryMetadata: QueryMetadata = {},
   ): Promise<PaginationResponse> {
-    queryMetadata.where.deletedAt = null;
-
     if (!pageInfo.getAll) {
       if (!pageInfo.pageSize || !pageInfo.pageNumber) {
         throw new Error('pageSize, pageNumber are required');

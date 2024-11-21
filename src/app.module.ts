@@ -9,6 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 // Import module system
 import { UsersModule } from '@system/users/users.module';
 import { AuthModule } from '@system/auth/auth.module';
+import { CategoriesModule } from '@production/categories/categories.module';
 
 @Module({
   imports: [
@@ -16,9 +17,10 @@ import { AuthModule } from '@system/auth/auth.module';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
+    PrismaModule,
     AuthModule,
     UsersModule,
-    PrismaModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [

@@ -19,11 +19,19 @@ export class UsersRepository extends BaseRepository {
         email: {},
       },
     };
+
     if (pageInfo.username) {
-      queryMetadata.where.username.contains = pageInfo.username;
+      queryMetadata.where.username = {
+        contains: pageInfo.username,
+        mode: 'insensitive',
+      };
     }
+
     if (pageInfo.email) {
-      queryMetadata.where.email.contains = pageInfo.email;
+      queryMetadata.where.email = {
+        contains: pageInfo.email,
+        mode: 'insensitive',
+      };
     }
 
     return await super.findMany(pageInfo, queryMetadata);
