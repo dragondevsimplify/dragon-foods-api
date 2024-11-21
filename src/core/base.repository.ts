@@ -6,7 +6,6 @@ import {
 import { PrismaService } from '@/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { PaginationResponse } from '@/types/response/response.type';
-import { ObjectId } from 'mongodb';
 
 const sortValuesOmitted = ['null', 'undefined'];
 
