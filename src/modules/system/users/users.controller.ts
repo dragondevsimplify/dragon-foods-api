@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Session, Put } from '@nestjs/common';
+import { Controller, Post, Body, Param, Patch } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -56,13 +56,13 @@ export class UsersController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() data: UpdateUserDto,
   ): Promise<Response> {
     try {
-      const result = await this.usersSrv.update(+id, data);
+      const result = await this.usersSrv.update(id, data);
       return {
         code: ResponseCode.OK,
         message: 'Updated successfully',

@@ -20,25 +20,12 @@ export class BaseService {
     return await this.repo.findMany(pageInfo);
   }
 
-  async update(id: number, data: any) {
+  async update(id: string, data: any) {
     const record = await this.findOne('id', id);
     if (!record) {
       throw new Error('Record not found');
     }
 
     return await this.repo.update(id, data);
-  }
-
-  async softDeleteById(id: number) {
-    const record = await this.findOne('id', id);
-    if (!record) {
-      throw new Error('Record not found');
-    }
-
-    return await this.repo.softDeleteById(id);
-  }
-
-  async softDeleteByIds(ids: number[]) {
-    return await this.repo.softDeleteByIds(ids);
   }
 }

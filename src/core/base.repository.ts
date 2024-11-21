@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '@/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { PaginationResponse } from '@/types/response/response.type';
+import { ObjectId } from 'mongodb';
 
 const sortValuesOmitted = ['null', 'undefined'];
 
@@ -107,7 +108,7 @@ export class BaseRepository {
     });
   }
 
-  async update(id: number, data: any) {
+  async update(id: string, data: any) {
     return await this.prisma[this.tableName].update({
       where: { id },
       data,
