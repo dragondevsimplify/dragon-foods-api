@@ -9,15 +9,39 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model sys_users {
-  id Int @id @default(autoincrement())
-
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   username String @unique
   email    String @unique
   password String
+  carts prod_carts[]
 }
 
+model prod_categories {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  imageUrl String?
+  foods prod_foods[]
+}
+
+model prod_foods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  price BigInt
+  imageUrl String?
+  categoryId String @db.ObjectId
+  category prod_categories @relation(fields: [categoryId], references: [id])
+  carts prod_carts[]
+}
+
+model prod_carts {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  foodId String @db.ObjectId
+  user sys_users @relation(fields: [userId], references: [id])
+  food prod_foods @relation(fields: [foodId], references: [id])
+}

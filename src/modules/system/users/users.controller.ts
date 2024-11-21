@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Param,
-  Session,
-  Put,
-} from '@nestjs/common';
+import { Controller, Post, Body, Param, Session, Put } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -25,13 +18,9 @@ export class UsersController {
 
   // Đăng ký
   @Post('signup')
-  async signup(
-    @Body() payload: CreateUserDto,
-    @Session() session: any,
-  ): Promise<Response> {
+  async signup(@Body() payload: CreateUserDto): Promise<Response> {
     try {
       const result = await this.usersSrv.create(payload);
-      session.userId = result.id;
 
       return {
         code: ResponseCode.OK,
@@ -49,13 +38,9 @@ export class UsersController {
 
   // Đăng nhập
   @Post('signin')
-  async signin(
-    @Body() payload: SigninDto,
-    @Session() session: any,
-  ): Promise<Response> {
+  async signin(@Body() payload: SigninDto): Promise<Response> {
     try {
       const result = await this.authSrv.signin(payload);
-      session.userId = result.id;
 
       return {
         code: ResponseCode.OK,

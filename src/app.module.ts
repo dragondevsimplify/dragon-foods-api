@@ -1,7 +1,6 @@
 import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
-import { CookieSessionMiddleware } from './middlewares/cookie-session.middleware';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -35,7 +34,5 @@ import { AuthModule } from '@system/auth/auth.module';
 export class AppModule {
   constructor(private readonly configService: ConfigService) {}
 
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CookieSessionMiddleware).forRoutes('*');
-  }
+  configure(consumer: MiddlewareConsumer) {}
 }

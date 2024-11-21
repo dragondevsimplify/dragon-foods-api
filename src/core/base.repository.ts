@@ -45,7 +45,6 @@ export class BaseRepository {
     return await this.prisma[this.tableName].findFirst({
       where: {
         [k]: v,
-        deletedAt: null,
       },
     });
   }
@@ -110,30 +109,8 @@ export class BaseRepository {
 
   async update(id: number, data: any) {
     return await this.prisma[this.tableName].update({
-      where: { id, deletedAt: null },
-      data,
-    });
-  }
-
-  async softDeleteById(id: number) {
-    return await this.prisma[this.tableName].update({
       where: { id },
-      data: {
-        deletedAt: new Date(),
-      },
-    });
-  }
-
-  async softDeleteByIds(ids: number[]) {
-    return await this.prisma[this.tableName].updateMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-      data: {
-        deletedAt: new Date(),
-      },
+      data,
     });
   }
 }
