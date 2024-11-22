@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from '@system/users/users.module';
 import { AuthModule } from '@system/auth/auth.module';
 import { CategoriesModule } from '@production/categories/categories.module';
+import { MediaModule } from './modules/system/media/media.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CategoriesModule } from '@production/categories/categories.module';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     PrismaModule,
+    MediaModule,
     AuthModule,
     UsersModule,
     CategoriesModule,
