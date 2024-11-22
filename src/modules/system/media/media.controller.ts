@@ -20,7 +20,7 @@ export class MediaController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination: './uploads/',
+        destination: './public/uploads/',
         filename: (req, file, cb) => {
           const filename = `${uuidv4()}.${file.originalname.split('.').at(-1)}`;
           cb(null, filename);
@@ -32,9 +32,8 @@ export class MediaController {
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Response> {
     try {
-      console.log(file);
       const result = {
-        url: 'http://localhost:3000',
+        url: `http://localhost:3000/uploads/${file.filename}`,
       };
 
       return {
