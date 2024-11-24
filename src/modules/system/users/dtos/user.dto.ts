@@ -12,4 +12,7 @@ export class UserDto {
 
   @Exclude()
   password: string;
+
+  @Expose()
+  isAdmin: boolean;
 }

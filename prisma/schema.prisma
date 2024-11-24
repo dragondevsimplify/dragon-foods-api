@@ -14,34 +14,35 @@ datasource db {
 }
 
 model sys_users {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  username String @unique
-  email    String @unique
+  id       String       @id @default(auto()) @map("_id") @db.ObjectId
+  username String       @unique
+  email    String       @unique
   password String
-  carts prod_carts[]
+  isAdmin  Boolean
+  carts    prod_carts[]
 }
 
 model prod_categories {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
+  id       String       @id @default(auto()) @map("_id") @db.ObjectId
+  name     String       @unique
   imageUrl String?
-  foods prod_foods[]
+  foods    prod_foods[]
 }
 
 model prod_foods {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
-  price BigInt
-  imageUrl String?
-  categoryId String @db.ObjectId
-  category prod_categories @relation(fields: [categoryId], references: [id])
-  carts prod_carts[]
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  name       String          @unique
+  price      BigInt
+  imageUrl   String?
+  categoryId String          @db.ObjectId
+  category   prod_categories @relation(fields: [categoryId], references: [id])
+  carts      prod_carts[]
 }
 
 model prod_carts {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  foodId String @db.ObjectId
-  user sys_users @relation(fields: [userId], references: [id])
-  food prod_foods @relation(fields: [foodId], references: [id])
+  id     String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId String     @db.ObjectId
+  foodId String     @db.ObjectId
+  user   sys_users  @relation(fields: [userId], references: [id])
+  food   prod_foods @relation(fields: [foodId], references: [id])
 }
