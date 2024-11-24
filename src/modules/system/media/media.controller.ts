@@ -38,7 +38,7 @@ export class MediaController {
 
       return {
         code: ResponseCode.OK,
-        message: 'Signup successfully',
+        message: 'File uploaded',
         data: result ? plainToClass(FileDto, result) : null,
       };
     } catch (err) {
