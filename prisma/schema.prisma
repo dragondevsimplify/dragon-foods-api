@@ -30,13 +30,28 @@ model prod_categories {
 }
 
 model prod_foods {
-  id         String          @id @default(auto()) @map("_id") @db.ObjectId
-  name       String          @unique
-  price      BigInt
-  imageUrl   String?
-  categoryId String          @db.ObjectId
-  category   prod_categories @relation(fields: [categoryId], references: [id])
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  description String?
+  price       BigInt
+  imageUrl    String?
+  tags        String[]
+  type        String
+  extrast     String[]
+  postDate    DateTime
+
+  categoryId String               @db.ObjectId
+  category   prod_categories      @relation(fields: [categoryId], references: [id])
   carts      prod_carts[]
+  variants   prod_food_variants[]
+}
+
+model prod_food_variants {
+  id     String     @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  size   String
+  foodId String     @db.ObjectId
+  food   prod_foods @relation(fields: [foodId], references: [id])
 }
 
 model prod_carts {
